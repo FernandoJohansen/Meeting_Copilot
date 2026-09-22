@@ -1,24 +1,24 @@
-# Meeting Copilot — Assistente de Reuniões com IA
+# Meeting Copilot: Assistente de Reuniões com IA
 
 [Português](README.md) | [English](README.en.md)
 
 Aplicação desktop em Python (PySide6) que acompanha reuniões em tempo real:
 transcreve o áudio localmente (faster-whisper) e sugere pontos de fala usando
-um modelo de linguagem — na nuvem (OpenAI) ou 100% local (Ollama) — com uso
+um modelo de linguagem, na nuvem (OpenAI) ou 100% local (Ollama), com uso
 transparente aos participantes.
 
 ## Como funciona
 
-- **Captura de áudio**: dois fluxos independentes — seu microfone ("Você") e
+- **Captura de áudio**: dois fluxos independentes, seu microfone ("Você") e
   o áudio do sistema/loopback ("Outros", ex. os demais participantes em uma
   chamada de Zoom/Meet/Teams).
-- **Transcrição**: 100% local via [faster-whisper](https://github.com/SYSTRAN/faster-whisper)
-  — o áudio não é enviado a nenhum servidor para transcrever.
+- **Transcrição**: 100% local via [faster-whisper](https://github.com/SYSTRAN/faster-whisper),
+  o áudio não é enviado a nenhum servidor para transcrever.
 - **Sugestões**: a transcrição recente é enviada a um modelo de linguagem
   para gerar pontos de fala curtos e acionáveis (perguntas, riscos, próximos
   passos). Duas opções, escolhidas em Configurações:
-  - **OpenAI (nuvem)** — requer uma chave de API e créditos na conta.
-  - **Ollama (local, sem API)** — roda um LLM open-source na sua própria
+  - **OpenAI (nuvem)**: requer uma chave de API e créditos na conta.
+  - **Ollama (local, sem API)**: roda um LLM open-source na sua própria
     máquina, sem enviar nenhum texto a terceiros e sem custo por uso.
 - **Transparência**: enquanto a reunião está ativa, um banner sempre-visível
   é exibido na tela (útil se você compartilhar a tela) informando que uma IA
@@ -26,7 +26,7 @@ transparente aos participantes.
   colar no chat.
 - **Sem sugestões também é uma opção**: se você não configurar nem OpenAI
   nem Ollama, o app continua funcionando normalmente só com a transcrição
-  local — o painel de sugestões simplesmente fica vazio.
+  local; o painel de sugestões simplesmente fica vazio.
 
 ## Instalação
 
@@ -40,13 +40,13 @@ pip install -r requirements.txt
 
 A barra de ferramentas tem dois switches:
 
-- **Leve / Desempenho** — alterna instantaneamente entre um perfil de
+- **Leve / Desempenho**: alterna instantaneamente entre um perfil de
   transcrição leve (modelo `tiny`, blocos maiores, menos threads de CPU) e
   um perfil de desempenho (modelo `small`, blocos menores, menor latência).
   Se uma reunião estiver em andamento, a captura e o modelo são reiniciados
   automaticamente com o novo perfil. Um terceiro perfil "Equilibrado" fica
   disponível em Configurações.
-- **PT / EN** — troca o idioma de toda a interface (títulos, botões,
+- **PT / EN**: troca o idioma de toda a interface (títulos, botões,
   mensagens de status, banner de transparência) instantaneamente, sem
   precisar reiniciar o app. A preferência é salva e restaurada na próxima
   vez que o app for aberto.
@@ -74,10 +74,10 @@ O maior custo de CPU do app é a transcrição local (Whisper). Ajustes, do
 mais para o menos impactante:
 
 1. **Capture só o microfone.** Sem o áudio do sistema, o modelo roda uma
-   única vez por bloco em vez de duas — corta o uso de CPU da transcrição
+   única vez por bloco em vez de duas, cortando o uso de CPU da transcrição
    pela metade. Deixe "Áudio do sistema" como "Nenhum" em Configurações.
 2. **Use o switch Leve na barra de ferramentas** (ou o perfil "Leve" em
-   Configurações) — modelo `tiny`, blocos de 10s, 2 threads de CPU.
+   Configurações): modelo `tiny`, blocos de 10s, 2 threads de CPU.
    Indicado para notebooks fracos, mini-PCs ou quando o app roda junto com
    a chamada de vídeo.
 3. **Aumente a duração do bloco de áudio.** Blocos maiores geram menos
@@ -86,18 +86,18 @@ mais para o menos impactante:
 4. **Limite as threads de CPU.** Por padrão (`0`) a transcrição usa todos
    os núcleos disponíveis, o que pode deixar a interface e o restante do
    sistema travando durante a transcrição em máquinas com poucos núcleos.
-   Reduzir para 1–2 threads deixa núcleos livres para o resto do sistema,
+   Reduzir para 1 ou 2 threads deixa núcleos livres para o resto do sistema,
    à custa de transcrição mais lenta.
 5. **`whisper_compute_type: int8`** (padrão) já é a configuração de menor
-   uso de memória/CPU para rodar em CPU — não há necessidade de alterar,
+   uso de memória/CPU para rodar em CPU; não há necessidade de alterar,
    a menos que você tenha GPU NVIDIA (nesse caso, veja `whisper_device` no
    arquivo de configuração).
 6. **Se usar Ollama, prefira um modelo pequeno** (ex. `qwen2.5:3b` ou
-   `llama3.2:3b`) — ele roda ao mesmo tempo que o Whisper e disputa CPU/RAM
+   `llama3.2:3b`): ele roda ao mesmo tempo que o Whisper e disputa CPU/RAM
    com ele.
 
 A transcrição usa VAD (detecção de atividade de voz) para pular trechos de
-silêncio automaticamente — a maior parte do custo real de CPU acontece só
+silêncio automaticamente; a maior parte do custo real de CPU acontece só
 quando alguém está falando.
 
 ## Configuração de áudio no Linux (PipeWire/PulseAudio)
@@ -126,7 +126,7 @@ python -m meeting_copilot
    velocidade e qualidade em CPU) e os dispositivos de áudio.
 2. Clique em **Iniciar reunião**. O modelo Whisper é carregado (pode levar
    alguns segundos) e a captura de áudio + transcrição começam.
-3. O banner de transparência aparece automaticamente — use "Copiar aviso"
+3. O banner de transparência aparece automaticamente; use "Copiar aviso"
    para informar os participantes de que uma IA está em uso.
 4. Sugestões de fala aparecem periodicamente no painel direito; use
    **Gerar sugestões agora** para forçar uma atualização.
@@ -140,10 +140,10 @@ python -m meeting_copilot
 - Se você usar o motor OpenAI, apenas trechos de texto da transcrição (não
   o áudio) são enviados para gerar sugestões. Com o motor Ollama, nem isso
   sai da sua máquina.
-- O banner de transparência é exibido sempre que a captura está ativa —
-  **use esta ferramenta de forma ética**: informe verbalmente ou pelo chat
-  que uma IA está assistindo a reunião antes de usá-la, especialmente em
-  chamadas com terceiros.
+- O banner de transparência é exibido sempre que a captura está ativa; **use
+  esta ferramenta de forma ética**: informe verbalmente ou pelo chat que uma
+  IA está assistindo a reunião antes de usá-la, especialmente em chamadas
+  com terceiros.
 - A chave de API (quando usada) é armazenada em texto simples no arquivo de
   configuração local (`~/.config/MeetingCopilot/config.json`).
 
